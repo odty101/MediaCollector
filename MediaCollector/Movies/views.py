@@ -1,9 +1,20 @@
-from django.http import HttpResponse
+from django.views import generic
 
 from .models import Movie
 
 
-def index(request):
-    latest_movie_list = Movie.objects.order_by('-datetime_added')[:5]
-    output = ', '.join([movie.title for movie in latest_movie_list])
-    return HttpResponse(output)
+class IndexView(generic.ListView):
+    template_name = 'Movies/index.html'
+    context_object_name = 'latest_movie_list'
+
+    def get_queryset(self):
+        """Return the last five added moviees."""
+        return Movie.objects.order_by('-datetime_added')[:5]
+
+
+class DetailView(generic.DetailView):
+    model = Movie
+    template_name = 'Movies/detail.html'
+
+    def get_queryset(self):
+        return Movie.objects
