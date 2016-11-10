@@ -4,7 +4,7 @@ from .models import Movie
 
 
 class IndexView(generic.ListView):
-    template_name = 'Movies/index.html'
+    template_name = 'index.html'
     context_object_name = 'latest_movie_list'
 
     def get_queryset(self):

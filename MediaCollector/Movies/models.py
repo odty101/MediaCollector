@@ -5,6 +5,8 @@ class Movie(models.Model):
     title = models.CharField(max_length=250, unique_for_year="release_date")
     release_date = models.DateField('Release Date')
     runtime = models.PositiveSmallIntegerField()
+    cover_image = models.ImageField(upload_to='uploads/%Y/%m/%d/', height_field=256, width_field=192)
+    summary = models.TextField()
 
     FORMAT_CHOICES = (
         ('BRD', 'BRD'),

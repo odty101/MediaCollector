@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Titan Media Server{% endblock %}
+
+{% block content %}
+
+{% if latest_movie_list %}
+{% for movie in latest_movie_list %}
+<div class="panel panel-info">
+    <div class="panel-body">
+        <div class="media">
+            <div class="media-left media-top">
+                <a href="{% url 'Movies:detail' movie.id %}">
+                    <img class="media-object" data-src="holder.js/192x256" style="width: 192px; height: 256px;" alt="{{ movie.title }}" src="{% static "images/hp.jpg" %}" data-holder-rendered="true">
+                </a>
+            </div>
+            <div class="media-body">
+                <a href="{% url 'Movies:detail' movie.id %}"><h4 class="panel-title">{{ movie.title }}</h4></a>
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+{% endblock %}
