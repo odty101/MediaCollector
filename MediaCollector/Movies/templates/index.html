@@ -6,22 +6,53 @@
 {% block content %}
 
 {% if latest_movie_list %}
-{% for movie in latest_movie_list %}
-<div class="panel panel-info">
-    <div class="panel-body">
-        <div class="media">
-            <div class="media-left media-top">
-                <a href="{% url 'Movies:detail' movie.id %}">
-                    <img class="media-object" data-src="holder.js/192x256" style="width: 192px; height: 256px;" alt="{{ movie.title }}" src="{% static "images/hp.jpg" %}" data-holder-rendered="true">
-                </a>
+    {% for movie in latest_movie_list %}
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title pull-left">
+                    <a href="{% url 'Movies:detail' movie.id %}">{{ movie.title }} ({{ movie.release_date.year }})</a>
+                </h3>
+                <h3 class="panel-title pull-right">
+                    {{ movie.format }}
+                </h3>
+                <div class="clearfix"></div>
             </div>
-            <div class="media-body">
-                <a href="{% url 'Movies:detail' movie.id %}"><h4 class="panel-title">{{ movie.title }}</h4></a>
-                ...
-            </div>
+        <div class="clearfix"></div>
+        <div class="panel-body">
+            <ul class="media-list">
+                <li class="media">
+                    <div class="media-left">
+                        <div class="media-left media-top">
+                            <img class="media-object" style="width: 192px; height: 256px;" alt="{{ movie.title }}" src="{{ movie.cover_image }}" data-holder-rendered="true">
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>
+                                    Everyone's favorite novice wizard, Harry Potter, continues his high-flying adventures at Hogwarts. This time around, Harry ignores warnings not to return to school - that is, if he values his life - to investigate a mysterious series of attacks with Ron and Hermione.
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <dl class="dl-horizontal">
+                                    <dt>Rating</dt>
+                                    <dd>7/10</dd>
+                                    <dt>Release Date</dt>
+                                    <dd>1/1/1234</dd>
+                                    <dt>Runtime</dt>
+                                    <dd>123</dd>
+                                </dl>
+                                <span class="label label-default">photography</span>
+                                <span class="label label-default">photography</span>
+                                <span class="label label-default">photography</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-    </div>
 </div>
+
 {% endfor %}
 {% else %}
     <p>No polls are available.</p>

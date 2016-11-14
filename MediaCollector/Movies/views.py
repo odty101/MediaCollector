@@ -8,7 +8,6 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_movie_list'
 
     def get_queryset(self):
-        """Return the last five added moviees."""
         return Movie.objects.order_by('-datetime_added')[:5]
 
 

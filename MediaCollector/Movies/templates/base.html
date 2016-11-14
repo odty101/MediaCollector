@@ -1,3 +1,5 @@
+{% load lineage %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +11,8 @@
     <title>{% block title %}Titan Media Server{% endblock %}</title>
 </head>
 <body>
-<body>
 {% block nav %}
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-static-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -22,12 +23,11 @@
       </button>
       <a class="navbar-brand" href="#">Titan Media Server</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Movies</a></li>
-        <li><a href="#">TV</a></li>
+        <li class="{% ancestor '/movies' %}"><a href="/movies">Movies</a></li>
+        <li class="{% ancestor '/tv' %}"><a href="#">TV</a></li>
       </ul>
       <form class="navbar-form navbar-right">
         <div class="form-group">
@@ -36,7 +36,13 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Sign In</a></li>
+        {% if user.is_authenticated %}
+            <li class="navbar-text">Welcome, {{ user.username }}!</li>
+            <li class="{% ancestor '/logout' %}"><a href="/logout/">Logout</a></li>
+        {% else %}
+            <li class="{% ancestor '/register' %}"><a href="/register/">Register</a></li>
+            <li  class="{% ancestor '/login/' %}"><a href="/login/">Login</a></li>
+        {% endif %}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -44,10 +50,6 @@
 {% endblock %}
 
 <div class="container">
-    <div class="starter-template">
-        <h1>Welcome to Titan</h1>
-        <p class="lead">This is just the start of what is to come</p>
-    </div>
     {% block content %}{% endblock %}
 </div>
 </body>
