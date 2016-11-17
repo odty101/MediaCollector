@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ collection.name }}{% endblock %}
+
+{% block content %}
+    {% if collection.movies %}
+        {% for movie in collection.movies.all %}
+            {{ movie.title }}
+        {% endfor %}
+    {% else %}
+        {% if not user.username %}
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 style="text-align: center">You must be logged in to view a collection.</h3>
+                </div>
+                <div class="panel-body">
+                    <a href="/login/"><h3 style="text-align: center">Login</h3></a>
+            </div>
+        {% else %}
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 style="text-align: center">There are no Movies in the collection: {{ collection.name }}</h3>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
